@@ -1,0 +1,62 @@
+option java_package = "impl.underdark.protobuf";
+
+message Frame
+{
+	enum Kind
+	{
+		HELLO = 1;
+		HEARTBEAT = 2;
+		PAYLOAD = 3;
+		PORTS = 4;
+		CONNECTED = 5;
+		DISCONNECTED = 6;
+	}
+
+	required Kind kind = 1;
+
+	optional HelloFrame hello = 51;
+	optional HeartbeatFrame heartbeat = 52;
+	optional PayloadFrame payload = 53;
+	optional PortsFrame ports = 54;
+	optional ConnectedFrame connected = 55;
+	optional DisconnectedFrame disconnected = 56;
+} // Signal
+
+message Peer
+{
+	required bytes address = 1;		// 6-byte Bluetooth MAC address.
+	optional bool legacy = 2 [default = false];	// True if cannot advertise.
+	repeated int32 ports = 3;	// Channels numbers.
+}
+
+message HelloFrame
+{
+	required int64 nodeId = 1;
+	required Peer peer = 2;
+}
+
+message HeartbeatFrame
+{
+}
+
+message PayloadFrame
+{
+	required bytes payload = 1;
+}
+
+message PortsFrame
+{
+	required bytes address = 1;
+	repeated int32 ports = 2;
+}
+
+message ConnectedFrame
+{
+	required Peer peer = 1;
+}
+
+message DisconnectedFrame
+{
+	required bytes address = 1;
+}
+
