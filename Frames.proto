@@ -10,6 +10,7 @@ message Frame
 		PORTS = 4;
 		CONNECTED = 5;
 		DISCONNECTED = 6;
+		LONG_TRANSFER = 7;
 	}
 
 	required Kind kind = 1;
@@ -20,6 +21,7 @@ message Frame
 	optional PortsFrame ports = 54;
 	optional ConnectedFrame connected = 55;
 	optional DisconnectedFrame disconnected = 56;
+	optional LongTransferFrame longTransfer = 57;
 } // Signal
 
 message Peer
@@ -60,3 +62,7 @@ message DisconnectedFrame
 	required bytes address = 1;
 }
 
+message LongTransferFrame
+{
+	required bool lock = 1;
+}
